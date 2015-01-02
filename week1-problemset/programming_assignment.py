@@ -36,6 +36,8 @@ def main():
 	
 	xoredText = strxor(cypherTextsDecoded[xorTextNum1], cypherTextsDecoded[xorTextNum2])
 
+#https://cryptocult.wordpress.com/cyber-challenges/stanford-cryptography-i-programs/program-1/
+
 	for i in range(len(xoredText)):
     		z = xoredText[i:]
     		print "\n[%d]"%i
