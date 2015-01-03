@@ -47,17 +47,22 @@ def main():
 	## This part of the program is interactive.
 	## Keep guessing cribs and see how they might match in various XOR-ed cyphertexts (== XOR-ed plaintext) 
 	## Finally choose the longest, fully decrypted crib (6) and the target cypher (10)
+	# /begin interactive
 	crib = "There are two types of cyptography: one that allows the Government to use brute force to break the code, and one that requires the Government to use brute force to break you"
 	xorTextNum1 = 6
 	xorTextNum2 = 10
+	# /end interatcive
 	
 	xoredText = strxor(cypherTextsDecoded[xorTextNum1], cypherTextsDecoded[xorTextNum2])
 
+	# loop all individual positions of the XOR-ed crypto (plain) text
 	textLength = len(xoredText)
 	for i in range(textLength):
+			# XOR the substring with the crib
     		substrXoredText = xoredText[i:]
     		cribDraggedText = strxor(substrXoredText,crib)
-    		# do an estimated guess wether the text is readable
+
+    		# do an estimated guess wether the text is readable, if so print the guess (in place)
     		if(isreadable(cribDraggedText)):
 				printCodePos(i, cribDraggedText, textLength, '.')
     		
@@ -80,10 +85,10 @@ def strxor(a, b):     # xor two strings of different lengths
     else:
         return "".join([chr(ord(x) ^ ord(y)) for (x, y) in zip(a, b[:len(a)])])
 
-def isreadable(str):
+def isreadable(str): # check readability (allow only alphanumeric chars and some punctiation)
 	return bool(re.search('^[a-zA-Z0-9\., \'\"\-_\:\(\)]+$', str))
 
-def printCodePos(i, code, maxLen, filler):
+def printCodePos(i, code, maxLen, filler): # output the guess in place of the message
 	prefix =  filler*i
 	ln = len(code)
 	postfix = filler*(maxLen-i-ln)
