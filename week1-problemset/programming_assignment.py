@@ -96,7 +96,7 @@ def printCodePos(i, code, maxLen, filler): # output the guess in place of the me
     	
 
 main()
-
+	
 ## Output
 # The secret message is: When using a stream cipher, never use the key more than once
 # ..................................................................................C
