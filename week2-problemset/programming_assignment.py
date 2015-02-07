@@ -81,7 +81,7 @@ def ctrDecrypt1(key, cypherText, blockSize):
 # CTR decryption variant 2 
 def ctrDecrypt2(key, cypherText, blockSize):
 	cypherTextBlocks =  [cypherText[i:i+(blockSize*2)] for i in range(0, len(cypherText), (blockSize*2))]	
-	iv =  long(cypherTextBlocks.pop(0), 16)
+	iv =  long(cypherTextBlocks.pop(0), 16) 
 
 	cypherTextBlocksDecoded = map(methodcaller("decode", "hex"), cypherTextBlocks)
 	
@@ -91,7 +91,8 @@ def ctrDecrypt2(key, cypherText, blockSize):
 
 	i = 0
 	for c in cypherTextBlocksDecoded:
-	 	ctr = hex(iv+i)[2:(2*blockSize)+2]
+	 	ctr = hex(iv+i << 64)[2:(2*blockSize)+2]
+	 	#print ctr
 	 	encIV = AES.new(k, AES.MODE_ECB).encrypt(ctr)	
 	 	plaintext =  strxor(encIV, c)
 	 	#print plaintext
