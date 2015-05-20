@@ -113,11 +113,14 @@ def main():
 	## iv = cryptoBlocks.pop(0) # First item is IV in CBC crypto
 	lastChar = None
 
+
+
 	po = PaddingOracle()
 
 	# m0 corresponds to c0, which has index 1 in cryptoBlocks. IV has index 0 in cryptoBlocks. 
 	# We start with the last block
-	for blockNum in reversed(range(0,len(cryptoBlocks)-1)):
+	for blockNum in reversed(range(0,len(cryptoBlocks))):
+
 
 		# loop all 16 positions, last to first
 		for position in reversed(range(0, blockSize)):
@@ -145,10 +148,14 @@ def main():
 					print "Nothing found"
 					break;
 
+				print guess
+				print paddingNum
+				print cryptoSourceBlock.encode('hex')
+
 				# XOR the cryptoblock postion with the guess and the paddingnum
-				cryptoSourceBlock[position] ^= guess ^ paddingNum
+				cryptoSourceBlock[position] ^= ord(guess) ^ paddingNum
 				cryptoGuess = buildCryptoString(cryptoText, (blockNum * blockSize), cryptoSourceBlock)
-				if(po.query(cryptoGuess):
+				if(po.query(cryptoGuess)):
 					print "found char ", guess
 					messageBlocks[blockNum][position] = guess
 					break;
